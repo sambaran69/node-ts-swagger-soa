@@ -2,9 +2,19 @@
   "name": "ts-swagger-soa",
   "version": "1.0.0",
   "description": "Node, TS, Swagger API following clean architecture principles",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build-ts && npm run watch",
+    "build": "npm run tslint && npm run build-swagger",
+    "serve": "nodemon dist/server.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
+    "test": "jest --forceExit",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "debug": "npm run build && npm run watch-debug",
+    "serve-debug": "nodemon --inspect dist/server.js",
+    "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
+    "build-swagger": "tsoa routes && npm run build-ts && tsoa swagger"
   },
   "repository": {
     "type": "git",
@@ -28,7 +38,11 @@
     "typegoose": "^5.6.0"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.16.1",
     "@types/jest": "^24.0.11",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^11.13.4",
     "concurrently": "^4.1.0",
     "jest": "^24.7.1",
     "nodemon": "^1.18.11",
