@@ -17,3 +17,10 @@ This will have to be modified as per you local mongo database. There is no seedi
 
 ## Swagger
 The swagger generated API doc is available at http://localhost:3000/api-doc
+
+## Commands
+* **instalation:** `npm install`
+* **dev:** `npm start` *This builds tsoa routes, swagger definitions and starts the server on development mode listening to file changes (swagger definition changes will require a manual restart)*
+* **test:** `npm test` *unit and integration tests*
+* **lint:** `npm tslint` *check the code for linting errors*
+* **build:** `npm build` *production build*
