@@ -2,7 +2,7 @@ import { prop, Typegoose } from "typegoose";
 
 export class ProdcutAttribute extends Typegoose {
     @prop()
-    name: string;
+    public name: string;
     @prop()
-    value: string;
+    public value: string;
 }

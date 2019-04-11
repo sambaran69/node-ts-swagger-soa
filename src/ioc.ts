@@ -1,13 +1,12 @@
 import { Container, inject, interfaces } from "inversify";
-import { autoProvide, provide, fluentProvide, buildProviderModule } from "inversify-binding-decorators";
+import { autoProvide, buildProviderModule, fluentProvide, provide } from "inversify-binding-decorators";
+import "reflect-metadata";
 
 const iocContainer = new Container();
 iocContainer.load(buildProviderModule());
 
-const provideSingleton = function(
-    identifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>
-  ) {
-      return fluentProvide(identifier)
+const provideSingleton = (identifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => {
+    return fluentProvide(identifier)
         .inSingletonScope()
         .done();
   };

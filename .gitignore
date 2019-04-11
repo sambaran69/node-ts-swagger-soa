@@ -62,4 +62,4 @@ typings/
 
 #Tyepscript output directory
 dist
-
+src/routes.ts

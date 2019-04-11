@@ -1,17 +1,25 @@
-import { prop, Typegoose, arrayProp } from "typegoose";
+import { arrayProp, pre, prop, Typegoose } from "typegoose";
 import { ProdcutAttribute } from "./productAttribute";
+
+// @pre<Product>("save", async function() {
+//     if (this.isNew) {
+//     }
+
+//     if (this.isModified("name")) {
+//     }
+// })
 
 export class Product extends Typegoose {
     @prop()
-    productId: number;
+    public productId: number;
     @prop({ required: true })
-    name: string;
+    public name: string;
     @prop()
-    description?: string;
+    public description?: string;
     @prop({ required: true })
-    price: number;
+    public price: number;
     @arrayProp({ items: ProdcutAttribute })
-    features?: ProdcutAttribute[];
+    public features?: ProdcutAttribute[];
 }
 
-export const ProductModelMongo = new Product().getModelForClass(Product);
+export const ProductModelMongo = new Product().getModelForClass(Product, {schemaOptions: {timestamps: true}});

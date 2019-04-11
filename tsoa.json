@@ -1,8 +1,8 @@
 {
     "swagger": {
-        "outputDirectory": "./dist/",
+        "outputDirectory": "./dist/swagger",
         "entryFile": "./src/server.ts",
-        "host": "localhost:3000",
+        "host": "localhost:3600",
         "basePath": "/v1",
         "yaml": false
     },
@@ -11,6 +11,6 @@
         "entryFile": "./src/server.ts",
         "routesDir": "./src/",
         "middleware": "express",
-        "iocModule": "./src/inversify/ioc"
+        "iocModule": "./src/ioc"
     }
 }
