@@ -3,12 +3,12 @@ import * as dotenv from "dotenv";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
-import * as logger from "morgan";
 import { buildProviderModule } from "inversify-binding-decorators";
+import * as logger from "morgan";
 
 // TSOA automatically generates the routes from the annotations in the controller classes
+import { iocContainer } from "./ioc";
 import { RegisterRoutes } from "./routes";
-import {iocContainer} from "./ioc";
 
 // We still need to import the controller to have them crawled by the generator
 import { ApiController } from "./controller/api.controller";
