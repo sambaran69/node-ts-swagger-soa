@@ -4,13 +4,17 @@ import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as express from "express";
 import * as logger from "morgan";
+import { buildProviderModule } from "inversify-binding-decorators";
 
 // TSOA automatically generates the routes from the annotations in the controller classes
 import { RegisterRoutes } from "./routes";
+import {iocContainer} from "./ioc";
 
 // We still need to import the controller to have them crawled by the generator
-import "./controller/api.controller";
-import "./controller/product.controller";
+import { ApiController } from "./controller/api.controller";
+import { ProductsController } from "./controller/product.controller";
+
+iocContainer.load(buildProviderModule());
 
 // Swagger support
 import * as swaggerUI from "swagger-ui-express";
@@ -26,11 +30,6 @@ dotenv.config({ path: `${server.get("env")}.env` });
  */
 import "./config/mongodb";
 
-/**
- * RouteHandler.
- */
-RegisterRoutes(server);
-
 // Configure ExpressJS Middleware
 server.use(logger(process.env.MORGAN_LOGGER));
 
@@ -39,6 +38,11 @@ server.options("*", cors());
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
+
+/**
+ * RouteHandler.
+ */
+RegisterRoutes(server);
 
 // Serve the swagger ui at /api-docs
 // tslint:disable-next-line

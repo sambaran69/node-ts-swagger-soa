@@ -27,16 +27,16 @@ export class ProductsController extends Controller {
     }
 
     @Post()
-    public async createProduct(@Body() product: Product): Promise<Product> {
-        return this.productService.createProduct(product).then((created) => {
+    public async createProduct(@Body() body: Product): Promise<Product> {
+        return this.productService.createProduct(body).then((created) => {
             console.log("Product created: " + created.name);
             return created;
         }).catch((error) => console.log(`createProduct error: ${error}`));
     }
 
     @Put("{id}")
-    public async updateProduct(id: number, @Body() product: Product): Promise<Product> {
-        return this.productService.updateProduct(id, product).then((updated) => {
+    public async updateProduct(id: number, @Body() body: Product): Promise<Product> {
+        return this.productService.updateProduct(id, body).then((updated) => {
             console.log("Product updated: " + updated.name);
             return updated;
         }).catch((error) => console.log(`updateProduct error: ${error}`));

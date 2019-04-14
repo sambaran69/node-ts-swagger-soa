@@ -1,4 +1,3 @@
-import { Container, injectable } from "inversify";
 import "reflect-metadata";
 
 import { provideSingleton } from "../ioc";

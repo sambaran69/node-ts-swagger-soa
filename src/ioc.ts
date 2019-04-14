@@ -1,14 +1,23 @@
-import { Container, inject, interfaces } from "inversify";
-import { autoProvide, buildProviderModule, fluentProvide, provide } from "inversify-binding-decorators";
+import { Container, inject, injectable, interfaces, decorate } from "inversify";
+import { autoProvide, fluentProvide, provide } from "inversify-binding-decorators";
 import "reflect-metadata";
+import { Controller } from "tsoa";
 
-const iocContainer = new Container();
-iocContainer.load(buildProviderModule());
+decorate(injectable(), Controller);
 
-const provideSingleton = (identifier: string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>) => {
+// type Identifier = string | symbol | interfaces.Newable<any> | interfaces.Abstract<any>;
+type ArgTypes<Fn extends Function> = Fn extends (...args: infer A) => any
+  ? A
+  : never;
+
+type Identifier = ArgTypes<typeof fluentProvide>[0];
+
+const provideSingleton = (identifier: Identifier) => {
     return fluentProvide(identifier)
         .inSingletonScope()
         .done();
-  };
+};
 
-export { iocContainer, autoProvide, provide, inject, provideSingleton };
+const iocContainer = new Container();
+
+export { iocContainer, autoProvide, provide, inject, provideSingleton, injectable };
